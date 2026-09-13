@@ -5,13 +5,13 @@
 
 
 
-
+<!-- 
 
 <img src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake.svg" width="100%"/>
 
-<br/>
+<br/> -->
 
-<br/>
+<!-- <br/> -->
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%"/>
 
 </div>
