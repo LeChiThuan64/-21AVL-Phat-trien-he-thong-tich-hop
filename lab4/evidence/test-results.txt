@@ -1,0 +1,61 @@
+====================================================
+BẰNG CHỨNG THỰC HÀNH - LAB 04 SOCKET TCP/UDP
+====================================================
+
+MỤC 4.1 - HostInspector
+----------------------------------------------------
+$ java network.HostInspector localhost
+Host: localhost
+- IP: 127.0.0.1
+  Canonical: localhost
+  Loopback: true
+  Site local: false
+  Phiên bản IP: IPv4
+
+$ java network.HostInspector example.com
+Host: example.com
+- IP: 172.66.147.243
+  Canonical: 172.66.147.243
+  Loopback: false
+  Site local: false
+  Phiên bản IP: IPv4
+- IP: 104.20.23.154
+  Canonical: 104.20.23.154
+  Loopback: false
+  Site local: false
+  Phiên bản IP: IPv4
+
+$ java network.HostInspector host-khong-ton-tai.invalid
+Không phân giải được host: host-khong-ton-tai.invalid
+
+$ java network.HostInspector   (thiếu tham số)
+Usage: java network.HostInspector <hostname>
+
+====================================================
+MỤC 4.2 - TcpCommandServer / TcpCommandClient
+----------------------------------------------------
+[Terminal 1] $ java tcp.TcpCommandServer
+TCP server listening on port 5000
+
+[Terminal 2] $ java tcp.TcpCommandClient localhost 5000
+(gõ lần lượt: PING / UPPER xin chào / TIME / ABC / QUIT)
+Connected. Enter PING, TIME, UPPER text, QUIT
+Server: OK PONG
+Server: OK XIN CHÀO
+Server: OK 2026-09-20T02:25:02.164986130
+Server: ERR UNKNOWN_COMMAND
+Server: OK BYE
+
+Nhận xét: mỗi lệnh hợp lệ nhận đúng 1 dòng phản hồi; lệnh ABC không đúng cú pháp -> ERR UNKNOWN_COMMAND; QUIT -> OK BYE và client tự đóng.
+
+--- Ca 2 client cùng lúc, minh chứng server tuần tự (Hoạt động 4) ---
+Client A (kết nối trước, giữ 3 giây):
+Connected. Enter PING, TIME, UPPER text, QUIT
+Server: OK PONG
+Server: OK BYE
+
+Client B (kết nối sau, phải CHỜ Client A xong mới nhận được phản hồi):
+Connected. Enter PING, TIME, UPPER text, QUIT
+Server: OK PONG
+Server: OK BYE
+Thời gian Client B chờ để nhận phản hồi: khoảng 2.012081840 giây (đúng như dự kiến, vì server xử lý tuần tự từng client một).
