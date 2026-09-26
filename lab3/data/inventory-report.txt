@@ -1,0 +1,4 @@
+BAO CAO TON KHO
+So san pham: 2
+Tong gia tri ton kho: 5 VND
+San pham co gia tri ton kho cao nhat: 1 - 2: 4 VND

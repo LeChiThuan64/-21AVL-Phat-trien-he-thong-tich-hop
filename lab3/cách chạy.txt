@@ -1,0 +1,4 @@
+javac -d out Product.java InventoryManager.java
+java -cp out InventoryManager
+
+rồi nhấn enter để dùng
