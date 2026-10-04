@@ -1,34 +1,30 @@
-package bai1;
-
-public class HVuong {
-    private double canh;
+public class HVuong extends HCN {
 
     public HVuong() {
-        this.canh = 0;
+        super(1, 1);
     }
 
     public HVuong(double canh) {
-        this.canh = canh;
+        super(canh, canh);
     }
 
-    public double getCanh() {
-        return canh;
-    }
+    public double getCanh() { return getDai(); }
 
     public void setCanh(double canh) {
-        this.canh = canh;
+        super.setDai(canh);
+        super.setRong(canh);
     }
 
-    public double tinhChuVi() {
-        return canh * 4;
-    }
+    // Hình vuông luôn có 2 cạnh bằng nhau nên đổi 1 cạnh là đổi cả hai
+    @Override
+    public void setDai(double dai) { setCanh(dai); }
 
-    public double tinhDienTich() {
-        return canh * canh;
-    }
+    @Override
+    public void setRong(double rong) { setCanh(rong); }
 
-    public void xuatThongTin() {
-        System.out.printf("Hinh vuong: canh=%.2f, chuVi=%.2f, dienTich=%.2f%n",
-                canh, tinhChuVi(), tinhDienTich());
+    @Override
+    public void xuat() {
+        System.out.printf("Hình vuông: cạnh=%.2f, chu vi=%.2f, diện tích=%.2f%n",
+                getCanh(), chuVi(), dienTich());
     }
 }

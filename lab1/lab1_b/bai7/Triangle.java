@@ -1,43 +1,28 @@
-package bai7;
+import java.util.List;
 
-public class Triangle implements Polygon {
-    protected double canhA, canhB, canhC;
+public class Triangle extends AbstractPolygon {
 
-    public Triangle() {
-        this.canhA = 0;
-        this.canhB = 0;
-        this.canhC = 0;
+    public Triangle(List<Point> vertices) {
+        super(vertices, 3);
     }
 
-    public Triangle(double canhA, double canhB, double canhC) {
-        this.canhA = canhA;
-        this.canhB = canhB;
-        this.canhC = canhC;
+    @Override
+    public String getName() {
+        return "Tam giác";
     }
 
-    public double getCanhA() { return canhA; }
-    public double getCanhB() { return canhB; }
-    public double getCanhC() { return canhC; }
-
-    public void setCanhA(double canhA) { this.canhA = canhA; }
-    public void setCanhB(double canhB) { this.canhB = canhB; }
-    public void setCanhC(double canhC) { this.canhC = canhC; }
+    // Công thức Heron
+    @Override
+    public double area() {
+        double a = vertices.get(0).distanceTo(vertices.get(1));
+        double b = vertices.get(1).distanceTo(vertices.get(2));
+        double c = vertices.get(2).distanceTo(vertices.get(0));
+        double p = (a + b + c) / 2;
+        return Math.sqrt(Math.max(0, p * (p - a) * (p - b) * (p - c)));
+    }
 
     @Override
     public double perimeter() {
-        return canhA + canhB + canhC;
-    }
-    @Override
-    public double area() {
-        double p = perimeter() / 2;
-        double bp = p * (p - canhA) * (p - canhB) * (p - canhC);
-        if (bp < 0) return 0;
-        return Math.sqrt(bp);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s: canhA=%.2f, canhB=%.2f, canhC=%.2f, chuVi=%.2f, dienTich=%.2f",
-                getClass().getSimpleName(), canhA, canhB, canhC, perimeter(), area());
+        return sidesPerimeter();
     }
 }

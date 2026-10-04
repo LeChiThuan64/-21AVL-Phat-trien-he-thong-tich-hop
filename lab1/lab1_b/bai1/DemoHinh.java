@@ -1,23 +1,43 @@
-package bai1;
-
 public class DemoHinh {
     public static void main(String[] args) {
-        System.out.println("===== DEMO HINH CHU NHAT =====");
-        HCN hcn1 = new HCN();
-        hcn1.xuatThongTin();
-        HCN hcn2 = new HCN(5, 3);
-        hcn2.xuatThongTin();
+        HCN h1 = new HCN();
+        HCN h2 = new HCN(5, 3);
+        HVuong v1 = new HVuong();
+        HVuong v2 = new HVuong(4);
+        HTG t1 = new HTG();
+        HTG t2 = new HTG(3, 4, 5);
 
-        System.out.println("\n===== DEMO HINH VUONG =====");
-        HVuong hv1 = new HVuong();
-        hv1.xuatThongTin();
-        HVuong hv2 = new HVuong(4);
-        hv2.xuatThongTin();
+        System.out.println("--- Hình chữ nhật ---");
+        h1.xuat();
+        h2.xuat();
 
-        System.out.println("\n===== DEMO HINH TAM GIAC =====");
-        HTG tg1 = new HTG();
-        tg1.xuatThongTin();
-        HTG tg2 = new HTG(3, 4, 5);
-        tg2.xuatThongTin();
+        System.out.println("--- Hình vuông ---");
+        v1.xuat();
+        v2.xuat();
+
+        System.out.println("--- Tam giác ---");
+        t1.xuat();
+        t2.xuat();
+
+        System.out.println("--- Thử các phương thức set ---");
+        h1.setDai(10);
+        h1.setRong(2);
+        h1.xuat();
+        v1.setCanh(6);
+        v1.xuat();
+        t1.setA(1.5);
+        t1.xuat();
+
+        System.out.println("--- Thử dữ liệu sai ---");
+        try {
+            new HTG(1, 2, 10);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Lỗi: " + e.getMessage());
+        }
+        try {
+            h2.setDai(-5);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Lỗi: " + e.getMessage());
+        }
     }
 }

@@ -1,20 +1,23 @@
-package bai7;
 public class Square extends Rectangle {
+    private final double side;
 
-    public Square() {
-        super();
+    public Square(double side) {
+        super(side, side);
+        this.side = side;
     }
 
-    public Square(double canh) {
-        super(canh, canh);
+    @Override
+    public String getName() {
+        return "Hình vuông";
     }
 
-    public double getCanh() {
-        return getChieuDai();
+    @Override
+    public double area() {
+        return side * side;
     }
 
-    public void setCanh(double canh) {
-        setChieuDai(canh);
-        setChieuRong(canh);
+    @Override
+    public double perimeter() {
+        return 4 * side;
     }
 }

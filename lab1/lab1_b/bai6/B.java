@@ -1,10 +1,3 @@
-package bai6;
-
 public class B extends A {
-    int x;
-
-    public B() {
-        super();
-        this.x = 2;
-    }
+    protected int x = 2;   // che (hide) biến x của A
 }

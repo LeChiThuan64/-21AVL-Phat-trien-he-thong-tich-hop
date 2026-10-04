@@ -1,64 +1,74 @@
-package bai5;
-
-import java.util.Scanner;
-import bai4.Student;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentDemo {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        int n = docSoLuong();
+        List<Student> ds = new ArrayList<>();
 
-        System.out.print("Nhap so luong sinh vien can nhap (n): ");
-        int n = Integer.parseInt(sc.nextLine().trim());
-
-        Student[] dsSinhVien = new Student[n];
-
-        for (int i = 0; i < n; i++) {
-            System.out.println("\n--- Nhap thong tin sinh vien thu " + (i + 1) + " ---");
-            dsSinhVien[i] = new Student();
-            dsSinhVien[i].inputInfo(sc);
+        for (int i = 1; i <= n; i++) {
+            System.out.println("\n--- Nhập sinh viên thứ " + i + " ---");
+            Student s = new Student();
+            s.inputInfo();
+            ds.add(s);
         }
 
-        // println
-        System.out.println("\n===== DANH SACH TAT CA SINH VIEN =====");
-        for (int i = 0; i < n; i++) {
-            System.out.println("\n-- Sinh vien " + (i + 1) + " --");
-            dsSinhVien[i].printInfo();
+        System.out.println("\n===== DANH SÁCH TẤT CẢ SINH VIÊN =====");
+        for (int i = 0; i < ds.size(); i++) {
+            System.out.println("\nSinh viên " + (i + 1) + ":");
+            ds.get(i).printInfo();
         }
 
-        if (n > 0) {
-            // search SV
-            Student caoNhat = dsSinhVien[0];
-            Student thapNhat = dsSinhVien[0];
-            for (int i = 1; i < n; i++) {
-                if (dsSinhVien[i].getDiemTrungBinh() > caoNhat.getDiemTrungBinh()) {
-                    caoNhat = dsSinhVien[i];
-                }
-                if (dsSinhVien[i].getDiemTrungBinh() < thapNhat.getDiemTrungBinh()) {
-                    thapNhat = dsSinhVien[i];
-                }
-            }
-
-            System.out.println("\n===== SINH VIEN CO DIEM TRUNG BINH CAO NHAT =====");
-            caoNhat.printInfo();
-
-            System.out.println("\n===== SINH VIEN CO DIEM TRUNG BINH THAP NHAT =====");
-            thapNhat.printInfo();
+        // Tìm điểm cao nhất và thấp nhất
+        double max = ds.get(0).getDiemTB();
+        double min = ds.get(0).getDiemTB();
+        for (Student s : ds) {
+            if (s.getDiemTB() > max) max = s.getDiemTB();
+            if (s.getDiemTB() < min) min = s.getDiemTB();
         }
 
-        // print SV has HB 
-        System.out.println("\n===== DANH SACH SINH VIEN DUOC HOC BONG (Diem TB > 8.0) =====");
-        boolean coHocBong = false;
-        for (int i = 0; i < n; i++) {
-            if (dsSinhVien[i].coHocBong()) {
-                System.out.println("\n-- Sinh vien " + (i + 1) + " --");
-                dsSinhVien[i].printInfo();
-                coHocBong = true;
+        System.out.println("\n===== SINH VIÊN CÓ ĐIỂM TRUNG BÌNH CAO NHẤT (" + max + ") =====");
+        for (Student s : ds) {
+            if (s.getDiemTB() == max) {
+                s.printInfo();
+                System.out.println();
             }
         }
-        if (!coHocBong) {
-            System.out.println("Khong co sinh vien nao duoc hoc bong.");
+
+        System.out.println("===== SINH VIÊN CÓ ĐIỂM TRUNG BÌNH THẤP NHẤT (" + min + ") =====");
+        for (Student s : ds) {
+            if (s.getDiemTB() == min) {
+                s.printInfo();
+                System.out.println();
+            }
         }
 
-        sc.close();
+        System.out.println("===== SINH VIÊN ĐƯỢC HỌC BỔNG (điểm TB > 8.0) =====");
+        boolean coAi = false;
+        for (Student s : ds) {
+            if (s.coHocBong()) {
+                s.printInfo();
+                System.out.println();
+                coAi = true;
+            }
+        }
+        if (!coAi) {
+            System.out.println("Không có sinh viên nào được học bổng.");
+        }
+    }
+
+    private static int docSoLuong() {
+        while (true) {
+            System.out.print("Nhập số lượng sinh viên n (> 0): ");
+            try {
+                int n = Integer.parseInt(Person.SC.nextLine().trim());
+                if (n > 0) {
+                    return n;
+                }
+                System.out.println("n phải lớn hơn 0!");
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số nguyên!");
+            }
+        }
     }
 }

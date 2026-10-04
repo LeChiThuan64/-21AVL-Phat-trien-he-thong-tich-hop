@@ -1,50 +1,51 @@
-package bai1;
-
 public class HTG {
-    private double canhA, canhB, canhC;
+    private double a;
+    private double b;
+    private double c;
 
     public HTG() {
-        this.canhA = 0;
-        this.canhB = 0;
-        this.canhC = 0;
+        this.a = 1;
+        this.b = 1;
+        this.c = 1;
     }
 
-    public HTG(double canhA, double canhB, double canhC) {
-        this.canhA = canhA;
-        this.canhB = canhB;
-        this.canhC = canhC;
+    public HTG(double a, double b, double c) {
+        kiemTra(a, b, c);
+        this.a = a;
+        this.b = b;
+        this.c = c;
     }
 
-    public double getCanhA() { return canhA; }
-    public double getCanhB() { return canhB; }
-    public double getCanhC() { return canhC; }
-
-    public void setCanhA(double canhA) { this.canhA = canhA; }
-    public void setCanhB(double canhB) { this.canhB = canhB; }
-    public void setCanhC(double canhC) { this.canhC = canhC; }
-
-    // check 3 canh isvalid ?
-    public boolean isHopLe() {
-        return canhA + canhB > canhC && canhA + canhC > canhB && canhB + canhC > canhA;
-    }
-
-    public double tinhChuVi() {
-        return canhA + canhB + canhC;
-    }
-
-    // S = ?
-    public double tinhDienTich() {
-        if (!isHopLe()) return 0;
-        double p = tinhChuVi() / 2;
-        return Math.sqrt(p * (p - canhA) * (p - canhB) * (p - canhC));
-    }
-
-    public void xuatThongTin() {
-        if (!isHopLe()) {
-            System.out.println("Hinh tam giac: 3 canh (" + canhA + ", " + canhB + ", " + canhC + ") khong hop le!");
-            return;
+    // 3 cạnh phải dương và thỏa bất đẳng thức tam giác
+    private static void kiemTra(double a, double b, double c) {
+        if (a <= 0 || b <= 0 || c <= 0) {
+            throw new IllegalArgumentException("Cạnh phải lớn hơn 0");
         }
-        System.out.printf("Hinh tam giac: a=%.2f, b=%.2f, c=%.2f, chuVi=%.2f, dienTich=%.2f%n",
-                canhA, canhB, canhC, tinhChuVi(), tinhDienTich());
+        if (a + b <= c || a + c <= b || b + c <= a) {
+            throw new IllegalArgumentException("Ba cạnh không tạo thành tam giác");
+        }
+    }
+
+    public double getA() { return a; }
+    public double getB() { return b; }
+    public double getC() { return c; }
+
+    public void setA(double a) { kiemTra(a, b, c); this.a = a; }
+    public void setB(double b) { kiemTra(a, b, c); this.b = b; }
+    public void setC(double c) { kiemTra(a, b, c); this.c = c; }
+
+    public double chuVi() {
+        return a + b + c;
+    }
+
+    // Công thức Heron
+    public double dienTich() {
+        double p = chuVi() / 2;
+        return Math.sqrt(p * (p - a) * (p - b) * (p - c));
+    }
+
+    public void xuat() {
+        System.out.printf("Tam giác: a=%.2f, b=%.2f, c=%.2f, chu vi=%.2f, diện tích=%.2f%n",
+                a, b, c, chuVi(), dienTich());
     }
 }

@@ -1,35 +1,34 @@
-package bai7;
+import java.util.List;
 
 public class Rectangle extends Quadrilateral {
+    private final double width;
+    private final double height;
 
-    public Rectangle() {
-        super();
+    public Rectangle(double width, double height) {
+        super(build(width, height));
+        this.width = width;
+        this.height = height;
     }
 
-    public Rectangle(double chieuDai, double chieuRong) {
-        super(chieuDai, chieuRong, chieuDai, chieuRong);
+    private static List<Point> build(double w, double h) {
+        if (w <= 0 || h <= 0) {
+            throw new IllegalArgumentException("Chiều dài và chiều rộng phải lớn hơn 0");
+        }
+        return List.of(new Point(0, 0), new Point(w, 0), new Point(w, h), new Point(0, h));
     }
 
-    public double getChieuDai() {
-        return canhA;
-    }
-
-    public double getChieuRong() {
-        return canhB;
-    }
-
-    public void setChieuDai(double chieuDai) {
-        this.canhA = chieuDai;
-        this.canhC = chieuDai;
-    }
-
-    public void setChieuRong(double chieuRong) {
-        this.canhB = chieuRong;
-        this.canhD = chieuRong;
+    @Override
+    public String getName() {
+        return "Hình chữ nhật";
     }
 
     @Override
     public double area() {
-        return getChieuDai() * getChieuRong();
+        return width * height;
+    }
+
+    @Override
+    public double perimeter() {
+        return 2 * (width + height);
     }
 }

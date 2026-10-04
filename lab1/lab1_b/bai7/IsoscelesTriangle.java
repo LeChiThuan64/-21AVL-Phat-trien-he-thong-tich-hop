@@ -1,29 +1,36 @@
-package bai7;
+import java.util.List;
 
 public class IsoscelesTriangle extends Triangle {
+    private final double base;  // cạnh đáy
+    private final double leg;   // cạnh bên
 
-    public IsoscelesTriangle() {
-        super();
+    public IsoscelesTriangle(double base, double leg) {
+        super(build(base, leg));
+        this.base = base;
+        this.leg = leg;
     }
 
-    public IsoscelesTriangle(double canhBen, double canhDay) {
-        super(canhBen, canhBen, canhDay);
+    private static List<Point> build(double base, double leg) {
+        if (base <= 0 || leg <= 0 || 2 * leg <= base) {
+            throw new IllegalArgumentException(
+                    "Cần đáy > 0, cạnh bên > 0 và 2 × cạnh bên > đáy");
+        }
+        double h = Math.sqrt(leg * leg - base * base / 4);
+        return List.of(new Point(0, 0), new Point(base, 0), new Point(base / 2, h));
     }
 
-    public double getCanhBen() {
-        return canhA; // canhA == canhB
+    @Override
+    public String getName() {
+        return "Tam giác cân";
     }
 
-    public double getCanhDay() {
-        return canhC;
+    @Override
+    public double area() {
+        return base * Math.sqrt(leg * leg - base * base / 4) / 2;
     }
 
-    public void setCanhBen(double canhBen) {
-        this.canhA = canhBen;
-        this.canhB = canhBen;
-    }
-
-    public void setCanhDay(double canhDay) {
-        this.canhC = canhDay;
+    @Override
+    public double perimeter() {
+        return base + 2 * leg;
     }
 }

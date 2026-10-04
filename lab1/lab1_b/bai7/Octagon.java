@@ -1,33 +1,23 @@
-package bai7;
+import java.util.List;
 
-public class Octagon implements Polygon {
-    protected double canh;
-    private static final int SO_CANH = 8;
+public class Octagon extends AbstractPolygon {
 
-    public Octagon() {
-        this.canh = 0;
+    public Octagon(List<Point> vertices) {
+        super(vertices, 8);
     }
-
-    public Octagon(double canh) {
-        this.canh = canh;
-    }
-
-    public double getCanh() { return canh; }
-    public void setCanh(double canh) { this.canh = canh; }
 
     @Override
-    public double perimeter() {
-        return SO_CANH * canh;
+    public String getName() {
+        return "Bát giác";
     }
 
     @Override
     public double area() {
-        return (SO_CANH * canh * canh) / (4 * Math.tan(Math.PI / SO_CANH));
+        return shoelaceArea();
     }
 
     @Override
-    public String toString() {
-        return String.format("%s: canh=%.2f, chuVi=%.2f, dienTich=%.2f",
-                getClass().getSimpleName(), canh, perimeter(), area());
+    public double perimeter() {
+        return sidesPerimeter();
     }
 }

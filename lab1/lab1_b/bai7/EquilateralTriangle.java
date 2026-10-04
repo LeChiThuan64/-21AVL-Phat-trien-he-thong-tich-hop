@@ -1,23 +1,23 @@
-package bai7;
-
-// Tam giác đều: cả 3 cạnh bằng nhau => là trường hợp đặc biệt của tam giác cân
 public class EquilateralTriangle extends IsoscelesTriangle {
+    private final double side;
 
-    public EquilateralTriangle() {
-        super();
+    public EquilateralTriangle(double side) {
+        super(side, side);
+        this.side = side;
     }
 
-    public EquilateralTriangle(double canh) {
-        super(canh, canh);
+    @Override
+    public String getName() {
+        return "Tam giác đều";
     }
 
-    public double getCanh() {
-        return canhA;
+    @Override
+    public double area() {
+        return Math.sqrt(3) / 4 * side * side;
     }
 
-    public void setCanh(double canh) {
-        this.canhA = canh;
-        this.canhB = canh;
-        this.canhC = canh;
+    @Override
+    public double perimeter() {
+        return 3 * side;
     }
 }

@@ -1,32 +1,23 @@
-package bai6;
-
 public class C extends B {
-    int x;
+    protected int x = 3;   // che (hide) biến x của B
 
-    public C() {
-        super();
-        this.x = 3;
+    // Truy cập và đặt x của A: ép kiểu this về A.
+    // Truy cập BIẾN được quyết định theo kiểu khai báo (kiểu tĩnh) chứ không theo đối tượng thật,
+    // nên ((A) this).x chính là x được khai báo trong A.
+    public void datXCuaA(int giaTri) {
+        ((A) this).x = giaTri;
     }
 
-    public void setAX(int value) {
-        ((A) this).x = value;
-    }
-
-    public int getAX() {
+    public int layXCuaA() {
         return ((A) this).x;
     }
 
-    public int getBX() {
-        return ((B) this).x;
+    // Với x của B thì dùng super.x
+    public int layXCuaB() {
+        return super.x;
     }
 
-    public int getCX() {
+    public int layXCuaC() {
         return this.x;
-    }
-
-    public void inThongTin() {
-        System.out.println("A.x = " + getAX());
-        System.out.println("B.x = " + getBX());
-        System.out.println("C.x = " + getCX());
     }
 }
