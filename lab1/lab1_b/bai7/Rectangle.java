@@ -1,3 +1,5 @@
+package bai7;
+
 import java.util.List;
 
 public class Rectangle extends Quadrilateral {

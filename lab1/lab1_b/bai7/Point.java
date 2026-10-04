@@ -1,3 +1,5 @@
+package bai7;
+
 public record Point(double x, double y) {
 
     public double distanceTo(Point p) {

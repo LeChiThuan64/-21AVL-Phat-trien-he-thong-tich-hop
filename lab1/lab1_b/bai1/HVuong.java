@@ -1,3 +1,4 @@
+package bai1;
 public class HVuong extends HCN {
 
     public HVuong() {

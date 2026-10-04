@@ -1,3 +1,4 @@
+package bai1;
 public class HCN {
     private double dai;
     private double rong;

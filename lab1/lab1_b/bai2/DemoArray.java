@@ -1,3 +1,4 @@
+package bai2;
 import java.util.Scanner;
 
 public class DemoArray {

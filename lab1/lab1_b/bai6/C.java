@@ -1,3 +1,5 @@
+package bai6;
+
 public class C extends B {
     protected int x = 3;   // che (hide) biến x của B
 

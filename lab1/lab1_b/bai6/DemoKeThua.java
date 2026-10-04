@@ -1,3 +1,5 @@
+package bai6;
+
 public class DemoKeThua {
     public static void main(String[] args) {
         C c = new C();

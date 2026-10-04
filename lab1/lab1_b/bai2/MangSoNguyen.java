@@ -1,4 +1,6 @@
+package bai2;
 import java.util.Scanner;
+
 
 public class MangSoNguyen {
     private final int[] a;

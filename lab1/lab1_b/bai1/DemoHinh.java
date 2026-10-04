@@ -1,3 +1,4 @@
+package bai1;
 public class DemoHinh {
     public static void main(String[] args) {
         HCN h1 = new HCN();

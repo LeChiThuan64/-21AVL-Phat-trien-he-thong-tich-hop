@@ -1,3 +1,5 @@
+package bai7;
+
 public class EquilateralTriangle extends IsoscelesTriangle {
     private final double side;
 

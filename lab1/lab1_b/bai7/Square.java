@@ -1,3 +1,5 @@
+package bai7;
+
 public class Square extends Rectangle {
     private final double side;
 

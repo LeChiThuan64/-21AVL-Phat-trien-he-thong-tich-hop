@@ -1,3 +1,5 @@
+package bai5;
+
 import java.time.LocalDate;
 
 public class Student extends Person {

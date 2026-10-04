@@ -1,3 +1,4 @@
+package bai1;
 public class HTG {
     private double a;
     private double b;
