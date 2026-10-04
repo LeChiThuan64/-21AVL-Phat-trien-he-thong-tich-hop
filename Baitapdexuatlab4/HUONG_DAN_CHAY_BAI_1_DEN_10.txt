@@ -1,0 +1,307 @@
+HUONG DAN DOC CODE VA CHAY BAI 1 DEN BAI 10
+============================================================
+
+THU MUC DU AN
+-------------
+Tat ca ma nguon cua 10 bai nam trong cac thu muc bai1, bai2, ..., bai10.
+Huong dan nay dung PowerShell tren Windows va gia su ban dang dung thu muc
+Baitapdexuatlab4 lam thu muc hien hanh.
+
+Mo PowerShell tai thu muc Baitapdexuatlab4. Neu dang o thu muc goc repository,
+chay:
+
+    cd .\Baitapdexuatlab4
+
+Can cai JDK 11 tro len va co lenh java, javac trong PATH. Kiem tra:
+
+    java -version
+    javac -version
+
+BIEN DICH
+---------
+Chay lenh sau mot lan trong PowerShell tai thu muc Baitapdexuatlab4. Lenh nay
+bien dich tat ca bai vao thu muc out:
+
+    javac -encoding UTF-8 -d out bai1\*.java bai2\*.java bai3\*.java bai4\*.java bai5\*.java bai6\*.java bai7\*.java bai8\*.java bai9\*.java bai10\*.java
+
+Neu sua code, chay lai lenh bien dich truoc khi chay chuong trinh.
+Tat ca lenh java ben duoi deu dung chung ket qua bien dich nay.
+
+LUU Y KHI CHAY CAC BAI MANG
+---------------------------
+- Mo mot cua so PowerShell rieng cho server va de server tiep tuc chay.
+- Mo cua so PowerShell thu hai (hoac nhieu hon) cho client.
+- Chay server truoc client.
+- Go Ctrl+C trong cua so server de dung server. Cac bai 2, 3 va 4 co dung
+  cong 5002, nen khong chay server bai 2 va bai 4 cung luc.
+- Cac bai 7 va 8 luu file theo duong dan tuong doi voi thu muc hien hanh.
+  Vi vay hay chay chuong trinh tu Baitapdexuatlab4, khong chay tu thu muc out.
+- Neu gap loi "Address already in use", cong dang duoc chuong trinh khac su
+  dung. Dung server do hoac dong tien trinh dang chiem cong roi thu lai.
+
+
+BAI 1 - PHAN TICH HOST VA URI
+-----------------------------
+Ma nguon: bai1\HostUriInspector.java
+
+Chuong trinh tra cuu cac dia chi IP cua host (IPv4/IPv6), thong tin loopback,
+site-local, va tach cac phan cua URI nhu scheme, host, port, path, query,
+fragment.
+
+Chay:
+
+    java -cp out Baitapdexuatlab4.bai1.HostUriInspector localhost "https://localhost:5000/api?ping=1#top"
+
+Thay localhost hoac URI trong lenh bang gia tri can kiem tra. Chuong trinh can
+du hai tham so: hostname va URI.
+
+
+BAI 2 - TCP DOI CHU SO THANH CHU
+--------------------------------
+Ma nguon: bai2\DigitToWordServer.java, bai2\DigitToWordClient.java
+
+Server lang nghe TCP cong 5002. Client gui tung chu so 0-9 va server tra ve
+cach doc tieng Viet khong dau. QUIT dung phien client.
+
+Cua so 1 - khoi dong server:
+
+    java -cp out bai2.DigitToWordServer
+
+Cua so 2 - khoi dong client:
+
+    java -cp out bai2.DigitToWordClient
+
+Nhap 0 den 9, moi lenh tren mot dong. Nhap QUIT de thoat client.
+
+
+BAI 3 - TCP VA UDP TRA VE NGAY/GIO
+---------------------------------
+Ma nguon: bai3\TCPServer.java, bai3\TCPClient.java,
+          bai3\UDPServer.java, bai3\UDPClient.java
+
+TCP su dung cong 5000; UDP su dung cong 6000. Ca hai nhan cac lenh DATE, TIME,
+DATETIME. Bai 3 khong khai bao package Java.
+
+Thu TCP:
+Cua so 1:
+
+    java -cp out TCPServer
+
+Cua so 2:
+
+    java -cp out TCPClient
+
+Thu UDP (dung server TCP o tren hoac dung Ctrl+C truoc):
+Cua so 1:
+
+    java -cp out UDPServer
+
+Cua so 2:
+
+    java -cp out UDPClient
+
+Nhap DATE, TIME hoac DATETIME. TCP gui QUIT de dong ket noi; UDP QUIT chi
+thoat client vi UDP khong duy tri phien ket noi.
+
+
+BAI 4 - MAY TINH TCP TU XA
+--------------------------
+Ma nguon: bai4\CalcServer.java, bai4\CalcClient.java
+
+Server lang nghe TCP cong 5002. Client gui phep tinh theo dang:
+CALC <toan_tu> <so_1> <so_2>
+Toan tu ho tro: +, -, *, /.
+
+Cua so 1:
+
+    java -cp out bai4.CalcServer
+
+Cua so 2:
+
+    java -cp out bai4.CalcClient
+
+Vi du nhap:
+
+    CALC + 100 200
+    CALC / 10 2
+
+Nhap QUIT de thoat. Cong 5002 cung duoc bai 2 su dung, hay dung server bai 2
+truoc khi chay bai 4.
+
+
+BAI 5 - CHAT TCP NHIEU CLIENT
+-----------------------------
+Ma nguon: bai5\ChatServer.java, bai5\ChatClient.java
+
+Server lang nghe TCP cong 5003, chap nhan nhieu client. Moi client chon
+nickname; lenh USERS xem danh sach, MSG <noi_dung> gui tin nhan, QUIT roi phong.
+
+Cua so 1:
+
+    java -cp out bai5.ChatServer
+
+Cua so 2 va cua so 3 (mo them cua so neu muon):
+
+    java -cp out bai5.ChatClient
+
+Sau khi ket noi, nhap nickname rieng cho moi cua so. Sau do thu:
+
+    USERS
+    MSG Xin chao moi nguoi
+    QUIT
+
+Server gui broadcast den cac client khac; client gui tin nhan khong nhan lai
+ban sao tin nhan cua chinh minh.
+
+
+BAI 6 - DO THOI GIAN TCP VA UDP
+-------------------------------
+Ma nguon: bai6\TcpEchoServer.java, bai6\TcpBenchmarkClient.java,
+          bai6\UdpEchoServer.java, bai6\UdpBenchmarkClient.java
+
+Hai server echo tra lai du lieu client gui. Moi benchmark gui 1000 thong diep
+moi vong, chay 5 vong va in so phan hoi cung thoi gian.
+
+Thu TCP:
+Cua so 1:
+
+    java -cp out bai6.TcpEchoServer
+
+Cua so 2:
+
+    java -cp out bai6.TcpBenchmarkClient
+
+Thu UDP (dung server TCP o tren hoac dung Ctrl+C truoc):
+Cua so 1:
+
+    java -cp out bai6.UdpEchoServer
+
+Cua so 2:
+
+    java -cp out bai6.UdpBenchmarkClient
+
+TCP dung cong 5004, UDP dung cong 5005. UDP co the mat goi; ket qua benchmark
+co the co it hon 1000 phan hoi moi vong. Co the them host va port sau ten
+client neu can ket noi may khac, vi du:
+
+    java -cp out bai6.TcpBenchmarkClient localhost 5004
+    java -cp out bai6.UdpBenchmarkClient localhost 5005
+
+
+BAI 7 - TCP GHI NHAT KY THEO CLIENT
+----------------------------------
+Ma nguon: bai7\LogServer.java, bai7\LogClient.java
+
+Server lang nghe cong 5006. Client tu dong gui HELLO <clientId>; cac dong tiep
+theo duoc ghi vao data\logs\<clientId>.txt kem thoi gian va dia chi client.
+clientId chi duoc chua chu cai, so, gach ngang va gach duoi.
+
+Cua so 1:
+
+    java -cp out bai7.LogServer
+
+Cua so 2:
+
+    java -cp out bai7.LogClient
+
+Nhap noi dung muon ghi vao nhat ky, moi noi dung mot dong. Nhap QUIT de thoat.
+Client mac dinh la client-01. Co the truyen host, port, clientId theo thu tu:
+
+    java -cp out bai7.LogClient localhost 5006 sinh-vien-01
+
+Kiem tra log tai data\logs\client-01.txt (hoac ten clientId da truyen).
+
+
+BAI 8 - GUI FILE TCP VA KIEM TRA SHA-256
+---------------------------------------
+Ma nguon: bai8\FileServer.java, bai8\FileClient.java
+
+Client gui ten file, kich thuoc, ma SHA-256 va noi dung file qua TCP cong 5007.
+Server luu file vao thu muc upload va tra ket qua kiem tra hash.
+
+Cua so 1:
+
+    java -cp out bai8.FileServer
+
+Cua so 2 - vi du gui file test.txt co san trong thu muc Baitapdexuatlab4:
+
+    java -cp out bai8.FileClient test.txt
+
+Co the truyen duong dan file, host va port:
+
+    java -cp out bai8.FileClient "C:\duong-dan\tep-can-gui.txt" localhost 5007
+
+Neu thanh cong, server tra ve OK <ten_file>. Kiem tra file nhan tai
+upload\<ten_file>. Chi gui file kich thuoc phu hop voi bo nho may.
+
+
+BAI 9 - UDP MULTICAST
+---------------------
+Ma nguon: bai9\MulticastReceiver.java, bai9\MulticastSender.java
+
+Receiver tham gia nhom multicast 239.255.0.1 cong 5008. Sender gui mot thong
+bao den nhom; nen mo hai receiver tro len truoc khi gui de thay nhieu thanh
+vien cung nhan duoc tin.
+
+Mo cua so 1 (receiver thu nhat):
+
+    java -cp out bai9.MulticastReceiver
+
+Mo cua so 2 (receiver thu hai):
+
+    java -cp out bai9.MulticastReceiver
+
+Mo cua so 3 (sender):
+
+    java -cp out bai9.MulticastSender "Thong bao thu nghiem"
+
+Receiver chay lien tuc cho den khi dung bang Ctrl+C. Multicast co the bi
+firewall, VPN, Wi-Fi/router hoac card mang chan. Cac may gui va nhan can dung
+duoc cung mang/interface multicast.
+
+
+BAI 10 - UDP SERVICE DISCOVERY VA TCP SERVICE
+---------------------------------------------
+Ma nguon: bai10\DiscoveryServer.java, bai10\DiscoveryClient.java
+
+Server cho discovery UDP cong 5009 va dong thoi mo TCP service cong 5010.
+Client broadcast DISCOVER_SERVICE, nhan thong tin dich vu roi tu ket noi TCP
+de lay phan hoi.
+
+Cua so 1:
+
+    java -cp out bai10.DiscoveryServer
+
+Cua so 2:
+
+    java -cp out bai10.DiscoveryClient
+
+Client cho toi da 2 giay. Neu khong tim thay server, kiem tra Windows
+Defender Firewall cho phep Java tren mang dang dung va dam bao cong UDP 5009,
+TCP 5010 khong bi chan. Broadcast co the bi chan boi Wi-Fi/router/VPN; tren
+mang that cac may can cung subnet va chinh sach mang phai cho phep broadcast.
+
+
+TOM TAT CAC CONG
+----------------
+Bai 2: TCP 5002
+Bai 3: TCP 5000, UDP 6000
+Bai 4: TCP 5002
+Bai 5: TCP 5003
+Bai 6: TCP 5004, UDP 5005
+Bai 7: TCP 5006
+Bai 8: TCP 5007
+Bai 9: UDP Multicast 239.255.0.1:5008
+Bai 10: UDP 5009, TCP 5010
+
+LOI THUONG GAP
+-------------
+- 'javac' hoac 'java' khong duoc nhan dien: cai JDK 11 tro len va them thu muc
+  bin cua JDK vao PATH, sau do mo lai PowerShell.
+- 'Could not find or load main class': kiem tra da bien dich bang -d out, dang
+  o thu muc Baitapdexuatlab4 va dung dung ten lop trong lenh java -cp out.
+- 'Connection refused': server chua chay, sai cong, hoac server vua dung.
+- 'Address already in use': da co chuong trinh khac su dung cong do.
+- Client ket noi may khac: thay localhost bang IP cua may chay server va mo
+  cac cong tuong ung tren firewall.
+
