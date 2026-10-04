@@ -6,37 +6,18 @@ public class Product {
 
     public Product(String code, String name, double unitPrice, int quantity) {
         if (code == null || code.isBlank()) {
-            throw new IllegalArgumentException("Ma khong duoc rong");
+            throw new IllegalArgumentException("Mã không được rỗng");
         }
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Ten khong duoc rong");
+            throw new IllegalArgumentException("Tên không được rỗng");
         }
-        if (unitPrice <= 0) {
-            throw new IllegalArgumentException("Don gia phai lon hon 0");
-        }
-        if (quantity < 0) {
-            throw new IllegalArgumentException("So luong khong duoc am");
+        if (unitPrice <= 0 || quantity < 0) {
+            throw new IllegalArgumentException("Giá hoặc số lượng không hợp lệ");
         }
         this.code = code;
         this.name = name;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 
     public double inventoryValue() {
