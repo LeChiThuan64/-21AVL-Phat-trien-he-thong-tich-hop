@@ -22,6 +22,7 @@ public class CalcClient {
                      socket.getOutputStream(), StandardCharsets.UTF_8), true)) {
 
             System.out.println("Da ket noi. Nhap lenh dang: CALC + 100 200 (hoac QUIT)");
+            
             String request;
             while ((request = console.readLine()) != null) {
                 out.println(request);

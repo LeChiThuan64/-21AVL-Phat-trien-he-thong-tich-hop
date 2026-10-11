@@ -57,11 +57,11 @@ public class CalcServer {
         String[] parts = remainder.split("\\s+");
         if (parts.length != 3) return "ERR INVALID_FORMAT";
 
-        String operator = parts[0];
+        String operator = parts[1];
         double a;
         double b;
         try {
-            a = Double.parseDouble(parts[1]);
+            a = Double.parseDouble(parts[0]);
             b = Double.parseDouble(parts[2]);
         } catch (NumberFormatException e) {
             return "ERR INVALID_NUMBER";
