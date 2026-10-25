@@ -1,0 +1,190 @@
+==========================================================================
+            HUONG DAN CHAY LAB 06 - JAVA RMI (9 BAI)
+==========================================================================
+
+I. CAU TRUC THU MUC
+-------------------
+LAB06_RMI/
+|-- bai1/  Hello, World!            (HelloService, HelloServer, HelloClient)
+|-- bai2/  Tinh tong hai so         (Calculator, CalculatorServer, CalculatorClient)
+|-- bai3/  Kiem tra so nguyen to    (PrimeService, PrimeServer, PrimeClient)
+|-- bai4/  Quan ly danh ba          (ContactService, ContactServer, ContactClient)
+|-- bai5/  Chat don gian            (ChatService, ChatServer, ChatClient)
+|-- bai6/  Tai khoan ngan hang      (BankService, BankServer, BankClient)
+|-- bai7/  Tinh dien tich hinh hoc  (ShapeService, ShapeServer, ShapeClient)
+|-- bai8/  Dat ve may bay           (FlightService, FlightServer, FlightClient)
+`-- bai9/  Dau gia truc tuyen       (AuctionService, AuctionServer, AuctionClient, ...)
+
+Moi bai gom: Interface (Remote) + Implementation + Server + Client.
+Tat ca deu la file .java KHONG co package, nen cu dung trong thu muc cua bai
+de bien dich va chay.
+
+
+II. YEU CAU
+-----------
+- Cai JDK 8 tro len (khuyen nghi JDK 11/17/21). Kiem tra:
+      java -version
+      javac -version
+  Neu "javac" bao khong tim thay => ban moi cai JRE, can cai JDK
+  (https://adoptium.net).
+- KHONG can chay "rmiregistry" rieng va KHONG can "rmic":
+  Server tu tao registry bang LocateRegistry.createRegistry(1099).
+- Port 1099 phai con trong (neu dang bi chiem, tat chuong trinh dang dung
+  hoac server cu chua tat).
+
+
+III. CACH CHAY CHUNG (AP DUNG CHO MOI BAI)
+------------------------------------------
+Can mo 2 cua so terminal / CMD (cung dung trong thu muc cua bai).
+
+Buoc 1 - Bien dich (chi lam 1 lan cho moi bai):
+      cd bai1
+      javac -encoding UTF-8 *.java
+
+Buoc 2 - Terminal 1: chay SERVER (de nguyen, khong tat):
+      java HelloServer
+
+Buoc 3 - Terminal 2: chay CLIENT:
+      java HelloClient
+
+Buoc 4 - Dung xong: nhan Ctrl + C o terminal server de tat.
+
+LUU Y QUAN TRONG: Moi bai deu dung cong 1099 nen chi chay MOT server tai mot
+thoi diem. Truoc khi chuyen sang bai khac phai tat server cua bai truoc.
+
+
+IV. LENH CHAY TUNG BAI
+----------------------
+(Deu: cd vao thu muc bai -> javac -encoding UTF-8 *.java -> chay Server -> chay Client)
+
+Bai 1 - Hello, World!
+      Server: java HelloServer
+      Client: java HelloClient
+      Ket qua: "Server tra ve: Hello, World!"
+
+Bai 2 - Tinh tong hai so
+      Server: java CalculatorServer
+      Client: java CalculatorClient
+      Nhap a, b theo yeu cau => hien thi a + b.
+
+Bai 3 - Kiem tra so nguyen to
+      Server: java PrimeServer
+      Client: java PrimeClient
+      Nhap so de kiem tra, nhap q de thoat.
+
+Bai 4 - Quan ly danh ba
+      Server: java ContactServer
+      Client: java ContactClient
+      Menu: 1.Them  2.Tim  3.Sua  4.Xoa  5.Xem toan bo  0.Thoat
+      (Danh ba luu trong HashMap<String,String> tren server, nen
+       du lieu mat khi tat server.)
+
+Bai 5 - Chat 1-1
+      Server: java ChatServer
+      Client: java ChatClient
+      Cach dung:
+        * Client go tin nhan roi Enter.
+        * Ben cua so SERVER se hien tin nhan do; nguoi ngoi o server go
+          cau tra loi roi Enter.
+        * Client nhan va hien thi phan hoi (cho toi da 120 giay).
+        * Go "exit" o client hoac server de thoat.
+
+Bai 6 - Ngan hang
+      Server: java BankServer       (so du ban dau 1,000,000)
+      Client: java BankClient
+      Menu: 1.Kiem tra so du  2.Gui tien  3.Rut tien  0.Thoat
+      Rut qua so du => bao that bai.
+
+Bai 7 - Tinh dien tich hinh hoc
+      Server: java ShapeServer
+      Client: java ShapeClient
+      Chon hinh chu nhat / hinh tron / tam giac roi nhap thong so.
+
+Bai 8 - Dat ve may bay
+      Server: java FlightServer
+      Client: java FlightClient
+      Co san 4 chuyen: VN101 (50 ghe), VN202 (30), VJ303 (40), QH404 (20).
+      Menu: 1.Xem DS chuyen bay  2.Ghe trong  3.Dat ve  4.Huy ve  0.Thoat
+      Khong the dat qua so ghe con lai, khong the huy qua so ghe da dat.
+
+Bai 9 - Dau gia truc tuyen (can mo NHIEU client)
+      Server:   java AuctionServer
+      Client 1: java AuctionClient     (vi du nhap ten "An"   - dong vai Seller)
+      Client 2: java AuctionClient     (vi du nhap ten "Binh" - dong vai Bidder)
+      Client 3: java AuctionClient     (vi du nhap ten "Chi"  - dong vai Bidder)
+      Kich ban thu:
+        1) An chon 1: them san pham "Laptop", gia khoi diem 1000.
+        2) Binh chon 2 de xem danh sach, chon 3: dat gia 1500 cho san pham #1.
+        3) Chi chon 3: dat gia 2000 cho san pham #1.
+        => Binh NHAN THONG BAO NGAY: "Ban da bi vuot gia ..."
+        => An (nguoi ban) cung nhan thong bao gia moi.
+      Quy tac: gia thau phai cao hon gia hien tai; nguoi ban khong duoc tu
+      dat gia san pham cua minh. Thong bao thoi gian thuc dung co che
+      CALLBACK (server goi nguoc lai remote object cua client).
+
+
+V. CHAY TREN 2 MAY KHAC NHAU (MANG LAN)
+---------------------------------------
+Gia su may server co IP 192.168.1.10:
+
+  Tren may SERVER (them tham so hostname):
+      java -Djava.rmi.server.hostname=192.168.1.10 HelloServer
+
+  Tren may CLIENT (truyen IP server lam tham so):
+      java HelloClient 192.168.1.10
+
+  - Moi Client deu nhan IP server lam tham so dau tien (mac dinh "localhost").
+  - Tat/ mo port 1099 tren firewall cua may server.
+  - Rieng Bai 9 (callback): may client cung can cho phep ket noi den vao,
+    va chay voi:
+      java -Djava.rmi.server.hostname=<IP_may_client> AuctionClient <IP_server>
+
+
+VI. XU LY LOI THUONG GAP
+------------------------
+1) "javac is not recognized / command not found"
+      => Chua cai JDK hoac chua them vao PATH.
+
+2) "Could not find or load main class ..."
+      => Chua bien dich, hoac dang dung sai thu muc. Phai cd vao dung
+         thu muc bai roi moi chay.
+
+3) "java.rmi.server.ExportException: Port already in use: 1099"
+      => Server bai truoc chua tat. Tat bang Ctrl+C hoac kill tien trinh java.
+         Windows: tasklist | findstr java  ->  taskkill /F /PID <pid>
+         Linux/Mac: pkill -f Server
+
+4) "java.rmi.ConnectException: Connection refused"
+      => Chua chay server, hoac sai IP/cong, hoac firewall chan.
+
+5) "java.rmi.NotBoundException"
+      => Ten dang ky cua client va server khong khop (trong code da khop san;
+         chi gap neu ban tu sua ten).
+
+6) Hien thi chu
+      Toan bo noi dung da duoc chuyen sang tieng Viet KHONG DAU nen khong bi loi font
+      tren Windows CMD / PowerShell / Terminal.
+
+7) Chay bang IDE (IntelliJ / Eclipse / NetBeans)
+      - Tao project moi cho tung bai, copy cac file .java cua bai do vao src.
+      - Chay lop *Server truoc (Run), sau do chay lop *Client.
+      - Voi Bai 9 can chay lop AuctionClient nhieu lan
+        (IntelliJ: Run > Edit Configurations > bat "Allow multiple instances").
+
+
+VII. GIAI THICH NGAN CAC THANH PHAN RMI
+---------------------------------------
+- Interface (extends Remote): khai bao cac phuong thuc goi tu xa; moi phuong
+  thuc phai khai bao "throws RemoteException".
+- Implementation (extends UnicastRemoteObject): cai dat logic that chay tren
+  server.
+- Server: LocateRegistry.createRegistry(1099) tao registry roi
+  registry.rebind("Ten", doi_tuong) de dang ky dich vu.
+- Client: LocateRegistry.getRegistry(host, 1099) roi registry.lookup("Ten")
+  de lay stub va goi phuong thuc nhu goi ham cuc bo.
+- Doi tuong truyen qua mang (vd. AuctionItem, Map, List) phai implements
+  Serializable.
+- Bai 9 dung callback: client cung export mot Remote object
+  (BidderCallbackImpl) de server chu dong day thong bao.
+
+==========================================================================
